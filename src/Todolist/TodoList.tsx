@@ -1,5 +1,6 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React from 'react';
 import { FilterValueType } from './../App';
+import ItemInput from './ItemInput';
 import TasksMap from './TasksMap';
 import s from './Todolist.module.css'
 
@@ -17,14 +18,13 @@ type PropsType = {
     changeFilter: (todolistID: string, value: FilterValueType) => void
     addTask: (todolistId: string, newTaskTitle: string) => void
     onChangeCheckboxStatus: (todolistId: string, id: string, value: boolean) => void
+    onChangeTaskTitle: (todolistId: string, id: string, value: boolean) => void
     filter: FilterValueType
     removeTodolist: (todolistId: string) => void
+    onChange: (value: string) => void
 }
 
 export function Todolist(props: PropsType) {
-
-    const [newTaskTitle, setNewTaskTitle] = useState('')
-    const [error, setError] = useState(false)
 
 
     const onChangeCheckbox = (tID: string, value: boolean) => {
@@ -36,24 +36,7 @@ export function Todolist(props: PropsType) {
     }
 
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setError(false)
-        setNewTaskTitle(e.currentTarget.value)
-    }
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            props.addTask(newTaskTitle, props.id);
-            setNewTaskTitle('')
-        }
-    }
-    const addTask = () => {
-        if (newTaskTitle.trim() !== '') {
-            props.addTask(newTaskTitle.trim(), props.id)
-            setNewTaskTitle('')
-        } else {
-            setError(true)
-        }
-    }
+
     const changeFilterHandler = (valueFilter: FilterValueType, todolistID: string) => {
         props.changeFilter(todolistID, valueFilter)
     }
@@ -62,21 +45,23 @@ export function Todolist(props: PropsType) {
         props.removeTodolist(props.id)
     }
 
+    const addTask = (title: string) => {
+        props.addTask(title, props.id)
+    }
+
+    const onChangeTitleHandler = (tID: string, value: string) => {
+        props.onChangeTaskTitle(props.id, tID, value)
+    }
+
+
     return <div>
         <h3>{props.title}</h3><button onClick={removeTodolist} >X</button>
-        <div>
-            <input value={newTaskTitle}
-                onChange={onChangeHandler}
-                onKeyPress={onKeyPressHandler}
-                className={error ? s.error : ''}
-            />
-            <button onClick={addTask}>+</button>
-            {error && <div className={s.errorMessage}>title is require!</div>}
-        </div>
+        <ItemInput addItem={addTask} />
         <ul>
             <TasksMap tasks={props.tasks}
                 onChangeCheckbox={onChangeCheckbox}
                 onRemoveHandler={onRemoveHandler}
+                onChange={onChangeTitleHandler}
             />
         </ul>
         <div>
