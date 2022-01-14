@@ -7,17 +7,16 @@ type ItemInputPropsType = {
 }
 
 
-
 function ItemInput(props: ItemInputPropsType) {
 
     const [newTaskTitle, setNewTaskTitle] = useState('')
-const [error, setError] = useState(false)
+    const [error, setError] = useState(false)
 
 
-const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setError(false)
-    setNewTaskTitle(e.currentTarget.value)
-}
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setError(false)
+        setNewTaskTitle(e.currentTarget.value)
+    }
 
     const addTask = () => {
         if (newTaskTitle.trim() !== '') {
@@ -36,15 +35,15 @@ const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     }
 
     return (
-            <div>
-                <input value={newTaskTitle}
-                    onChange={onChangeHandler}
-                    onKeyPress={onKeyPressHandler}
-                    className={error ? s.error : ''}
-                />
-                <button onClick={addTask}>+</button>
-                {error && <div className={s.errorMessage}>title is require!</div>}
-            </div>
+        <div>
+            <input value={newTaskTitle}
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                className={error ? s.error : ''}
+            />
+            <button onClick={addTask}>+</button>
+            {error && <div className={s.errorMessage}>title is require!</div>}
+        </div>
     )
 }
 

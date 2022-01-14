@@ -9,7 +9,7 @@ type TasksMapPropsType = {
     tasks: Array<TaskType>
     onChangeCheckbox: (tID: string, value: boolean) => void
     onRemoveHandler: (tID: string) => void
-    changeTaskTitle: (todolistId: string, id: string, value: string) => void
+    changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
 }
 
 
@@ -18,8 +18,8 @@ function TasksMap({ tasks, onChangeCheckbox, onRemoveHandler, changeTaskTitle, .
         <div>
             {
                 tasks.map(t => {
-                    const onChangeTitleHandler = (newValue: string) => {
-                        changeTaskTitle(t.id, newValue, props.id)
+                    const onChangeTitleHandler = (newTitle: string) => {
+                        changeTaskTitle(t.id, newTitle, props.id)
                     }
                 
                     return (

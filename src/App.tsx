@@ -56,11 +56,12 @@ function App() {
         setTasks({ ...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== id) })
     }
     const addTask = (todolistId: string, newTaskTitle: string) => {
-        const newTask = {
+        const newTask:TaskType = {
             id: v1(),
             title: newTaskTitle,
             isDone: false
         }
+      
         setTasks({ ...tasks, [todolistId]: [newTask, ...tasks[todolistId]] })
 
     }
@@ -87,7 +88,8 @@ function App() {
         delete tasks[todolistId]
 
     }
-    const changeTaskTitle = (todolistId: string, id: string, newTitle: string) => {
+    const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
+        debugger
         setTasks({
             ...tasks, [todolistId]: tasks[todolistId]
                 .map(m => m.id === id ? { ...m, title: newTitle } : m)
@@ -112,12 +114,12 @@ function App() {
                         key={tl.id}
                         id={tl.id}
                         title={tl.title}
+                        filter={tl.filter}
                         tasks={tasksForTodolist}
                         removeTask={removeTask}
                         changeFilter={changeFilter}
                         addTask={addTask}
                         changeCheckboxStatus={changeCheckboxStatus}
-                        filter={tl.filter}
                         removeTodolist={removeTodolist}
                         changeTaskTitle={changeTaskTitle}
                     />
