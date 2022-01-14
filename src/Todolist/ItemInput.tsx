@@ -6,15 +6,18 @@ type ItemInputPropsType = {
     addItem: (newTaskTitle: string) => void
 }
 
-const [newTaskTitle, setNewTaskTitle] = useState('')
+
+
+function ItemInput(props: ItemInputPropsType) {
+
+    const [newTaskTitle, setNewTaskTitle] = useState('')
 const [error, setError] = useState(false)
+
 
 const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setError(false)
     setNewTaskTitle(e.currentTarget.value)
 }
-
-function ItemInput(props: ItemInputPropsType) {
 
     const addTask = () => {
         if (newTaskTitle.trim() !== '') {

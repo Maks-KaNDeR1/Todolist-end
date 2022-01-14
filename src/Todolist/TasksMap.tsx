@@ -5,25 +5,30 @@ import s from './Todolist.module.css'
 
 
 type TasksMapPropsType = {
+    id: string
     tasks: Array<TaskType>
     onChangeCheckbox: (tID: string, value: boolean) => void
     onRemoveHandler: (tID: string) => void
-    onChange: (tID: string, value: string) => void
+    changeTaskTitle: (todolistId: string, id: string, value: string) => void
 }
 
 
-function TasksMap({ tasks, onChangeCheckbox, onRemoveHandler, onChange, ...props }: TasksMapPropsType) {
+function TasksMap({ tasks, onChangeCheckbox, onRemoveHandler, changeTaskTitle, ...props }: TasksMapPropsType) {
     return (
         <div>
             {
                 tasks.map(t => {
+                    const onChangeTitleHandler = (newValue: string) => {
+                        changeTaskTitle(t.id, newValue, props.id)
+                    }
+                
                     return (
                         <li key={t.id} className={t.isDone ? s.isDone : ''} >
                             <button onClick={() => onRemoveHandler(t.id)}>-</button>
                             <input
                                 onChange={(e) => onChangeCheckbox(t.id, e.currentTarget.checked)}
                                 type="checkbox" checked={t.isDone} />
-                                <EditableSpan title={t.title} onChange={onChange} />
+                                <EditableSpan title={t.title} onChange={onChangeTitleHandler} />
                         </li>
                     )
                 })

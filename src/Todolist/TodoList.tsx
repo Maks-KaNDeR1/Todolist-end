@@ -17,24 +17,23 @@ type PropsType = {
     removeTask: (todolistId: string, id: string) => void
     changeFilter: (todolistID: string, value: FilterValueType) => void
     addTask: (todolistId: string, newTaskTitle: string) => void
-    onChangeCheckboxStatus: (todolistId: string, id: string, value: boolean) => void
-    onChangeTaskTitle: (todolistId: string, id: string, value: boolean) => void
+    changeCheckboxStatus: (todolistId: string, id: string, value: boolean) => void
+    changeTaskTitle: (todolistId: string, id: string, value: string) => void
     filter: FilterValueType
     removeTodolist: (todolistId: string) => void
-    onChange: (value: string) => void
+    // onChange: (value: string) => void
 }
 
 export function Todolist(props: PropsType) {
 
 
     const onChangeCheckbox = (tID: string, value: boolean) => {
-        props.onChangeCheckboxStatus(props.id, tID, value)
+        props.changeCheckboxStatus(props.id, tID, value)
     }
 
     const onRemoveHandler = (tID: string) => {
         props.removeTask(tID, props.id)
     }
-
 
 
     const changeFilterHandler = (valueFilter: FilterValueType, todolistID: string) => {
@@ -49,19 +48,17 @@ export function Todolist(props: PropsType) {
         props.addTask(title, props.id)
     }
 
-    const onChangeTitleHandler = (tID: string, value: string) => {
-        props.onChangeTaskTitle(props.id, tID, value)
-    }
-
+ 
 
     return <div>
         <h3>{props.title}</h3><button onClick={removeTodolist} >X</button>
         <ItemInput addItem={addTask} />
         <ul>
-            <TasksMap tasks={props.tasks}
+            <TasksMap  id={props.id}
+             tasks={props.tasks}
                 onChangeCheckbox={onChangeCheckbox}
                 onRemoveHandler={onRemoveHandler}
-                onChange={onChangeTitleHandler}
+                changeTaskTitle={props.changeTaskTitle}
             />
         </ul>
         <div>
