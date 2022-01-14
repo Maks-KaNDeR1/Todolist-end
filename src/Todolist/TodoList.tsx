@@ -1,5 +1,6 @@
 import React from 'react';
 import { FilterValueType } from './../App';
+import EditableTodolist from './EditableTodolist';
 import ItemInput from './ItemInput';
 import TasksMap from './TasksMap';
 import s from './Todolist.module.css'
@@ -14,13 +15,14 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
+    filter: FilterValueType
     removeTask: (todolistId: string, id: string) => void
     changeFilter: (todolistID: string, value: FilterValueType) => void
     addTask: (todolistId: string, newTaskTitle: string) => void
     changeCheckboxStatus: (todolistId: string, id: string, value: boolean) => void
     changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
-    filter: FilterValueType
     removeTodolist: (todolistId: string) => void
+    changeTodolistTitle: (id: string, newTodolistTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -44,17 +46,25 @@ export function Todolist(props: PropsType) {
     }
 
     const addTask = (title: string) => {
-        props.addTask (props.id,title)
+        props.addTask(props.id, title)
     }
 
- 
+    const onChangeTodolistHandler = (newTodolistTitle: string) => {
+        props.changeTodolistTitle(props.id, newTodolistTitle)
+    }
+
 
     return <div>
-        <h3>{props.title} <button onClick={removeTodolist} >X</button> </h3>
+        {/* <h3>{props.title} <button onClick={removeTodolist} >X</button> </h3> */}
+        <EditableTodolist title={props.title}
+            onChange={onChangeTodolistHandler}
+            removeObject={removeTodolist}
+        />
+
         <ItemInput addItem={addTask} />
         <ul>
-            <TasksMap  id={props.id}
-             tasks={props.tasks}
+            <TasksMap id={props.id}
+                tasks={props.tasks}
                 onChangeCheckbox={onChangeCheckbox}
                 onRemoveHandler={onRemoveHandler}
                 changeTaskTitle={props.changeTaskTitle}

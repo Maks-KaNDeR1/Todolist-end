@@ -89,11 +89,17 @@ function App() {
 
     }
     const changeTaskTitle = (id: string, newTitle: string, todolistId: string) => {
-        debugger
         setTasks({
             ...tasks, [todolistId]: tasks[todolistId]
                 .map(m => m.id === id ? { ...m, title: newTitle } : m)
         })
+    }
+
+    const changeTodolistTitle = (id: string, newTodolistTitle: string) => {
+        setTodolist(
+            // ...tasks, [todolists]: tasks[todolists]
+            todolists.map(t => t.id === id ? { ...t, title: newTodolistTitle } : t)
+        )
     }
 
 
@@ -122,6 +128,7 @@ function App() {
                         changeCheckboxStatus={changeCheckboxStatus}
                         removeTodolist={removeTodolist}
                         changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}
                     />
                 })
             }
