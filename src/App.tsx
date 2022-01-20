@@ -94,7 +94,6 @@ function App() {
                 .map(m => m.id === id ? { ...m, title: newTitle } : m)
         })
     }
-
     const changeTodolistTitle = (id: string, newTodolistTitle: string) => {
         setTodolist(
             // ...tasks, [todolists]: tasks[todolists]
