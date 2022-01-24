@@ -1,16 +1,12 @@
 import { Button, ButtonGroup } from '@material-ui/core';
 import React from 'react';
-import { FilterValueType } from './../App';
+import { FilterValueType, TaskType } from './../App';
 import EditableTodolist from './EditableTodolist';
 import ItemInput from './ItemInput';
 import TasksMap from './TasksMap';
 import s from './Todolist.module.css'
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+
 
 type PropsType = {
     id: string
