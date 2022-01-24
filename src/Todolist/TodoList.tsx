@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from '@material-ui/core';
 import React from 'react';
 import { FilterValueType } from './../App';
 import EditableTodolist from './EditableTodolist';
@@ -71,18 +72,26 @@ export function Todolist(props: PropsType) {
             />
         </ul>
         <div>
-            <button className={props.filter === 'all' ? s.activeFilter : ''}
-                onClick={() => changeFilterHandler('all', props.id)}>
-                All
-            </button>
-            <button className={props.filter === 'active' ? s.activeFilter : ''}
-                onClick={() => changeFilterHandler('active', props.id)}>
-                Active
-            </button>
-            <button className={props.filter === 'completed' ? s.activeFilter : ''}
-                onClick={() => changeFilterHandler('completed', props.id)}>
-                Completed
-            </button>
+            <ButtonGroup>
+                <Button
+                    variant={props.filter === 'all' ? 'outlined' : 'contained'}
+                    onClick={() => changeFilterHandler('all', props.id)}
+                    color='inherit'
+                >All
+                </Button>
+                <Button
+                 variant={props.filter === 'active' ? 'outlined' : 'contained'}
+                    onClick={() => changeFilterHandler('active', props.id)}
+                    color='secondary'
+                >Active
+                </Button>
+                <Button
+                variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                    onClick={() => changeFilterHandler('completed', props.id)}
+                    color='primary'
+                >Completed
+                </Button>
+            </ButtonGroup>
         </div>
     </div>
 

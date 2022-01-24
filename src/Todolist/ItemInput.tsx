@@ -1,5 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { Button, IconButton, TextField } from '@material-ui/core'
 import s from './Todolist.module.css'
+import { AddBox } from '@material-ui/icons';
 
 
 type ItemInputPropsType = {
@@ -28,6 +30,7 @@ function ItemInput(props: ItemInputPropsType) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+       setError(false)
         if (e.key === 'Enter') {
             props.addItem(newTaskTitle);
             setNewTaskTitle('')
@@ -36,13 +39,23 @@ function ItemInput(props: ItemInputPropsType) {
 
     return (
         <div>
-            <input value={newTaskTitle}
+
+            <TextField variant='outlined'
+            error={error}
+                size='small'
+                value={newTaskTitle}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
-                className={error ? s.error : ''}
+                label={error ? 'Title is required!' : 'Add task'}
+                helperText={error}
             />
-            <button onClick={addTask}>+</button>
-            {error && <div className={s.errorMessage}>title is require!</div>}
+            <IconButton 
+            // variant='contained' 
+            color='primary'
+            style={{maxHeight:'39px', minHeight:'39px' }}
+                onClick={addTask}>
+                    <AddBox />
+                </IconButton>
         </div>
     )
 }

@@ -1,3 +1,5 @@
+import { IconButton } from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
 import React, { ChangeEvent, useState } from 'react'
 
 type EditableTodolistPropsType = {
@@ -24,10 +26,14 @@ function EditableTodolist(props: EditableTodolistPropsType) {
     return (
         editMode
             ? <input value={title} onChange={onChangeTitleHandler} onBlur={activateVewMode} autoFocus />
-            : <h3 onDoubleClick={activateEditMode}>
+            : <h2 onDoubleClick={activateEditMode}>
                 {props.title}
-                <button onClick={props.removeObject}> X </button>
-            </h3>
+                <IconButton
+                    aria-label='delete'
+                    onClick={props.removeObject}>
+                    <Delete />
+                </IconButton>
+            </h2>
     )
 }
 
