@@ -1,10 +1,9 @@
 import { Button, ButtonGroup } from '@material-ui/core';
 import React from 'react';
-import { FilterValueType, TaskType } from './../App';
+import { FilterValuesType, TaskType } from './../App';
 import EditableTodolist from './EditableTodolist';
 import ItemInput from './ItemInput';
 import TasksMap from './TasksMap';
-import s from './Todolist.module.css'
 
 
 
@@ -12,11 +11,11 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
-    filter: FilterValueType
+    filter: FilterValuesType
     removeTask: (todolistId: string, id: string) => void
-    changeFilter: (todolistID: string, value: FilterValueType) => void
+    changeFilter: (todolistID: string, value: FilterValuesType) => void
     addTask: (todolistId: string, newTaskTitle: string) => void
-    changeCheckboxStatus: (todolistId: string, id: string, value: boolean) => void
+    changeCheckboxStatus: (todolistId: string,  value: boolean, id: string) => void
     changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
     removeTodolist: (todolistId: string) => void
     changeTodolistTitle: (id: string, newTodolistTitle: string) => void
@@ -26,15 +25,14 @@ export function Todolist(props: PropsType) {
 
 
     const onChangeCheckbox = (tID: string, value: boolean) => {
-        props.changeCheckboxStatus(props.id, tID, value)
+        props.changeCheckboxStatus(tID, value, props.id)
     }
 
     const onRemoveHandler = (tID: string) => {
         props.removeTask(tID, props.id)
     }
 
-
-    const changeFilterHandler = (valueFilter: FilterValueType, todolistID: string) => {
+    const changeFilterHandler = (valueFilter: FilterValuesType, todolistID: string) => {
         props.changeFilter(todolistID, valueFilter)
     }
 
@@ -52,7 +50,6 @@ export function Todolist(props: PropsType) {
 
 
     return <div>
-        {/* <h3>{props.title} <button onClick={removeTodolist} >X</button> </h3> */}
         <EditableTodolist title={props.title}
             onChange={onChangeTodolistHandler}
             removeObject={removeTodolist}

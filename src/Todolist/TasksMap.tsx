@@ -1,9 +1,9 @@
 import React from 'react'
-import { IconButton, TextField } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import EditableSpan from './EditableSpan'
-import { TaskType } from './TodoList'
 import s from './Todolist.module.css'
+import { TaskType } from '../App'
 
 
 type TasksMapPropsType = {
