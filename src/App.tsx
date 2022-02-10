@@ -2,7 +2,7 @@ import { Container, Grid, Paper } from '@material-ui/core';
 import React, { useReducer } from 'react';
 import { v1 } from 'uuid';
 import './App.css';
-import { addTaskAC, changeCheckboxStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer } from './redux/tasks-reduce';
+import { addTaskAC, changeCheckboxStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer } from './redux/tasks-reducer';
 import { addTodolistAC, changeTodolistTitleAC, changeTodolistFilterAC, removeTodolistAC, todolistsReducer } from './redux/todolists-reducer';
 import ItemInput from './Todolist/ItemInput';
 import { Todolist } from './Todolist/TodoList';
