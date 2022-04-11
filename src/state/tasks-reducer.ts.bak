@@ -139,6 +139,6 @@ export const getTasks = (todoListId: string) => (dispatch: any) => {
     todolistsAPI.getTasks(todoListId)
         .then(res => {
 		const tasks = res.data.items
-            dispatch(setTasks((res.data.items), todoListId))
+            dispatch(setTasks((res.data.items, todoListId)))
         })
 }

@@ -41,6 +41,10 @@ function App() {
 
     useEffect(() => {
 	     dispatch(getTodolists)
+    //    todolistsAPI.getTodolists()
+     //  .then(res => {
+    //    dispatch(setTodolists(res.data))
+	//    })  
     }, [])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
