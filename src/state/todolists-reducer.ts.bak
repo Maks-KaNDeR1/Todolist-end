@@ -67,7 +67,10 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             }
             return [...state]
         }
-
+        case 'SET_TODOLISTS': {
+            let todo = [state: action.todolist]
+            todo.map( (td) =>   )
+        }
         default:
             return state;
     }
@@ -86,3 +89,16 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): Ch
     return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
 }
 
+
+type setTodolistsType = ReturnType<typeof setTodolists>
+export const setTodolists = (todolist: Array<TodolistType>) =>
+    ({ type: 'SET_TODOLISTS', todolist } as const)
+
+
+export const getTodolists = () => (dispatch: any) => {
+    todolistsAPI.getTodolists()
+    .then(res => {
+        debugger
+        dispatch(setTodolists(res.data))
+    } )
+}
