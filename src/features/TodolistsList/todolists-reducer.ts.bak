@@ -1,8 +1,6 @@
-import { handleServerAppError, handleServerNetworkError } from './../../utils/error-utils';
 import { setStatus, setStatusActionType, RequestStatusType, setError, setErrorActionType } from './../../app/app-reducer';
 import { todolistsAPI, TodolistType } from '../../api/todolists-api'
 import { Dispatch } from 'redux'
-import { AxiosError } from 'axios';
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -83,11 +81,11 @@ export const addTodolistTC = (title: string) => {
                     dispatch(addTodolistAC(res.data.data.item))
                     dispatch(setStatus('succeeded'))
                 } else {
-                    handleServerAppError<{item: TodolistType}>(dispatch, res.data)
+                    handleServerAppError(dispatch, res.data)
                 }
             })
 			.catch((err: AxiosError) => {
-		     handleServerNetworkError(dispatch, err)
+		     handleServerNetworkError(dispatch, error)
 		    })
     }
 }
