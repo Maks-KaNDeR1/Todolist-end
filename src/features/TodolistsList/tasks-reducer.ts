@@ -49,7 +49,7 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
     ({ type: 'SET-TASKS', tasks, todolistId } as const)
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsType | setStatusActionType>) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: ThunkDispatch) => {
     dispatch(setStatus('loading'))
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
@@ -66,17 +66,22 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
 
         })
 }
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType | setErrorActionType>) => {
+export const addTaskTC = (title: string, todolistId: string) => (dispatch: ThunkDispatch) => {
+    dispatch(setStatus('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 const task = res.data.data.item
                 const action = addTaskAC(task)
                 dispatch(action)
-            } else if (res.data.messages.length) {
-                dispatch(setError(res.data.messages[0]))
+                dispatch(setStatus('succeeded'))
             } else {
-                dispatch(setError('Some error occurred'))
+                if (res.data.messages.length) {
+                    dispatch(setError(res.data.messages[0]))
+                } else {
+                    dispatch(setError('Some error occurred'))
+                }
+                dispatch(setStatus('failed'))
             }
         })
 }
@@ -127,3 +132,6 @@ type ActionsType =
     | RemoveTodolistActionType
     | SetTodolistsActionType
     | ReturnType<typeof setTasksAC>
+
+
+type ThunkDispatch = Dispatch<ActionsType | setStatusActionType | setErrorActionType>

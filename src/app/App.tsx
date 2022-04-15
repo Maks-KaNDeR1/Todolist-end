@@ -17,8 +17,11 @@ import { useSelector } from 'react-redux';
 import { AppRootStateType } from './store';
 import { ErrorSnackbar } from './ErrorSnackbar';
 
+type PropsType = {
+   demo?: boolean
+   }
 
-function App() {
+function App({demo=false}: PropsType) {
 
     const status = useSelector<AppRootStateType>(state => state.app.status)
 
@@ -38,7 +41,7 @@ function App() {
             </AppBar>
            { status === 'loading' && <LinearProgress color='secondary' /> }
             <Container fixed>
-                <TodolistsList/>
+                <TodolistsList demo={demo} />
             </Container>
         </div>
     )
